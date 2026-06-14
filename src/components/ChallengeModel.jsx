@@ -1,32 +1,32 @@
 import React from 'react'
 import { Sun, Battery, Recycle, PiggyBank } from 'lucide-react'
 
-export default function ChallengeModel() {
+export default function ChallengeModel({ t }) {
   return (
     <section id="about" className="challenge-model-section">
       <div className="section-container challenge-model-grid">
         {/* Left Column: The Challenge */}
         <div className="challenge-col">
-          <div className="challenge-badge">The Challenge</div>
+          <div className="challenge-badge">{t.challengeHeading}</div>
           <p className="challenge-text">
-            Schools and communities face increasing energy costs and environmental challenges. Traditional funding models limit their ability to invest in sustainable solutions that could benefit future generations.
+            {t.challengeText}
           </p>
           <div className="challenge-image-container">
-            <img src="/assets/challenge-img.png" alt="Rooftop solar panel array reflecting sunset" loading="lazy" />
+            <img src="/assets/challenge-img.png" alt={t.challengeImageAlt || 'Rooftop solar panel array reflecting sunset'} loading="lazy" />
           </div>
         </div>
 
         {/* Right Column: The Kedalup Model */}
         <div className="model-col">
-          <h2 className="model-title">The Kedalup Model</h2>
+          <h2 className="model-title">{t.modelTitle}</h2>
           <div className="model-grid">
             {/* Card 1: Free Installation */}
             <div className="model-card light">
               <div className="card-icon-container">
                 <Sun size={32} strokeWidth={1.5} />
               </div>
-              <h3>Free Installation</h3>
-              <p>We install solar and EV stations at schools at zero cost</p>
+              <h3>{t.freeInstallation}</h3>
+              <p>{t.freeInstallationDesc}</p>
             </div>
 
             {/* Card 2: Discounted Energy */}
@@ -34,8 +34,8 @@ export default function ChallengeModel() {
               <div className="card-icon-container">
                 <Battery size={32} strokeWidth={1.5} />
               </div>
-              <h3>Discounted Energy</h3>
-              <p>Provide reduced rates through power purchase agreements</p>
+              <h3>{t.discountedEnergy}</h3>
+              <p>{t.discountedEnergyDesc}</p>
             </div>
 
             {/* Card 3: Full Maintenance */}
@@ -43,8 +43,8 @@ export default function ChallengeModel() {
               <div className="card-icon-container">
                 <Recycle size={32} strokeWidth={1.5} />
               </div>
-              <h3>Full Maintenance</h3>
-              <p>Ongoing system maintenance and support included</p>
+              <h3>{t.fullMaintenance}</h3>
+              <p>{t.fullMaintenanceDesc}</p>
             </div>
 
             {/* Card 4: Profit Sharing */}
@@ -52,8 +52,8 @@ export default function ChallengeModel() {
               <div className="card-icon-container">
                 <PiggyBank size={32} strokeWidth={1.5} />
               </div>
-              <h3>Profit Sharing</h3>
-              <p>50% of profits reinvested into schools and charities</p>
+              <h3>{t.profitSharing}</h3>
+              <p>{t.profitSharingDesc}</p>
             </div>
           </div>
         </div>
