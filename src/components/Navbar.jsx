@@ -1,9 +1,40 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Menu, X } from 'lucide-react'
 
-export default function Navbar() {
+const languageOptions = [
+  { code: 'en', label: 'English' },
+  { code: 'si', label: 'සිංහල' },
+  { code: 'ar', label: 'Arabic' },
+  { code: 'fr', label: 'French' },
+  { code: 'de', label: 'German' },
+  { code: 'es', label: 'Spanish' },
+  { code: 'zh', label: 'Chinese' },
+  { code: 'ko', label: 'Korean' }
+]
+
+export default function Navbar({ t, language, setLanguage }) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  // Smooth-scroll to section IDs while accounting for fixed header height
+  const scrollToId = (id) => {
+    const el = document.getElementById(id)
+    if (!el) return
+    const headerHeight = document.querySelector('.header')?.offsetHeight || 80
+    const top = el.offsetTop - headerHeight - 16
+    window.scrollTo({ top, behavior: 'smooth' })
+  }
+
+  const handleNavClick = (e, id) => {
+    if (e && e.preventDefault) e.preventDefault()
+    setIsMobileMenuOpen(false)
+    scrollToId(id)
+    try {
+      history.replaceState && history.replaceState(null, '', `#${id}`)
+    } catch (err) {
+      // ignore
+    }
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,29 +53,43 @@ export default function Navbar() {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
 
-  const handleLinkClick = () => {
-    setIsMobileMenuOpen(false)
-  }
-
   return (
     <>
       <header className={`header ${isScrolled ? 'scrolled-light' : ''}`}>
         <div className="nav-container">
-          <a href="#home" className="logo" aria-label="Kedalup Energy Home">
-            <span>Kedalup Energy</span>
+          <a href="#home" className="logo" aria-label="Kedalup Energy Home" onClick={(e) => handleNavClick(e, 'home')}>
+            <span>{t.logo}</span>
           </a>
 
           <nav role="navigation" aria-label="Main Navigation">
             <ul className="nav-links">
-              <li><a href="#home">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="#home" onClick={(e) => handleNavClick(e, 'home')}>{t.home}</a></li>
+              <li><a href="#about" onClick={(e) => handleNavClick(e, 'about')}>{t.about}</a></li>
+              <li><a href="#services" onClick={(e) => handleNavClick(e, 'services')}>{t.services}</a></li>
+              <li><a href="#contact" onClick={(e) => handleNavClick(e, 'contact')}>{t.contact}</a></li>
+              <li className="nav-language desktop-only">
+                <LanguageMenu
+                  language={language}
+                  setLanguage={setLanguage}
+                  options={languageOptions}
+                  label={t.languageLabel}
+                />
+              </li>
             </ul>
           </nav>
 
-          <a href="#contact" className="cta-button">
-            Book a Pickup
+          <div className="language-selector mobile-only">
+            {/* Mobile-visible language pill (kept outside centered nav) */}
+            <LanguageMenu
+              language={language}
+              setLanguage={setLanguage}
+              options={languageOptions}
+              label={t.languageLabel}
+            />
+          </div>
+
+          <a href="#contact" className="cta-button" onClick={(e) => handleNavClick(e, 'contact')}>
+            {t.bookPickup}
           </a>
 
           <button 
@@ -61,15 +106,62 @@ export default function Navbar() {
       {/* Mobile Drawer Overlay */}
       <div className={`mobile-nav-overlay ${isMobileMenuOpen ? 'open' : ''}`}>
         <ul className="mobile-nav-links">
-          <li><a href="#home" onClick={handleLinkClick}>Home</a></li>
-          <li><a href="#about" onClick={handleLinkClick}>About</a></li>
-          <li><a href="#services" onClick={handleLinkClick}>Services</a></li>
-          <li><a href="#contact" onClick={handleLinkClick}>Contact</a></li>
+          <li><a href="#home" onClick={(e) => handleNavClick(e, 'home')}>{t.home}</a></li>
+          <li><a href="#about" onClick={(e) => handleNavClick(e, 'about')}>{t.about}</a></li>
+          <li><a href="#services" onClick={(e) => handleNavClick(e, 'services')}>{t.services}</a></li>
+          <li><a href="#contact" onClick={(e) => handleNavClick(e, 'contact')}>{t.contact}</a></li>
         </ul>
-        <a href="#contact" className="cta-button" onClick={handleLinkClick}>
-          Book a Pickup
+        <a href="#contact" className="cta-button" onClick={(e) => handleNavClick(e, 'contact')}>
+          {t.bookPickup}
         </a>
       </div>
     </>
+  )
+}
+
+function LanguageMenu({ language, setLanguage, options, label }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const onDocClick = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
+    }
+    document.addEventListener('click', onDocClick)
+    return () => document.removeEventListener('click', onDocClick)
+  }, [])
+
+  const current = options.find(o => o.code === language) || options[0]
+
+  return (
+    <div className="language-menu-wrap" ref={ref}>
+      <button
+        className="language-btn"
+        aria-label={label}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => setOpen(s => !s)}
+        type="button"
+      >
+        <span className="language-label">{current.label}</span>
+        <span className="language-caret">▾</span>
+      </button>
+
+      {open && (
+        <ul className="language-menu" role="listbox">
+          {options.map(opt => (
+            <li key={opt.code} role="option">
+              <button
+                type="button"
+                className={`language-item ${opt.code === language ? 'active' : ''}`}
+                onClick={() => { setLanguage(opt.code); setOpen(false) }}
+              >
+                {opt.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   )
 }
