@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Hero() {
+export default function Hero({ t }) {
   return (
     <section 
       id="home" 
@@ -10,13 +10,18 @@ export default function Hero() {
       <div className="hero-overlay"></div>
       <div className="hero-container">
         <div className="hero-content animate-fade-in">
-          <h1>Powering Schools.<br />Empowering Communities.</h1>
+          <h1>{t.heroTitle.split('\n').map((line, index) => (
+            <React.Fragment key={index}>
+              {line}
+              {index < t.heroTitle.split('\n').length - 1 && <br />}
+            </React.Fragment>
+          ))}</h1>
           <p className="hero-subtitle">
-            Creating sustainable futures through renewable energy partnerships with Aboriginal communities, schools, and charities.
+            {t.heroSubtitle}
           </p>
           <div className="hero-actions">
-            <a href="#about" className="btn-primary">See How It Works</a>
-            <a href="#contact" className="btn-primary">Get Involved</a>
+            <a href="#about" className="btn-primary">{t.seeHowItWorks}</a>
+            <a href="#contact" className="btn-primary">{t.getInvolved}</a>
           </div>
         </div>
       </div>
