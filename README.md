@@ -1,3 +1,8 @@
+### My Details
+* **Name:** Navidu Manathunga
+* **Project Title:** The Kedalup Energy
+* **GitHub Report:** https://github.com/navidumanathunga/Kedalup-Energy-project.git
+
 # Kedalup Energy Website
 
 A modern, responsive, and user-friendly frontend web application built using **React.js** and **Vanilla CSS**. This project was developed as a frontend assignment to recreate the Kedalup Energy website design.
