@@ -1,7 +1,7 @@
 import React from 'react'
 import { Phone, Mail, MapPin } from 'lucide-react'
 
-export default function Footer() {
+export default function Footer({ t }) {
   const currentYear = new Date().getFullYear()
 
   return (
@@ -10,40 +10,40 @@ export default function Footer() {
         {/* Left Column: Company Info */}
         <div className="footer-col">
           <a href="#home" className="footer-logo">
-            <span>Kedalup Energy</span>
+            <span>{t.logo}</span>
           </a>
           <p className="footer-description">
-            Powering Australian schools and communities through community solar.
+            {t.footerDescription}
           </p>
         </div>
 
         {/* Middle Column: Quick Links */}
         <div className="footer-col">
-          <h3>Quick Links</h3>
+          <h3>{t.quickLinksTitle}</h3>
           <ul className="footer-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Book a Pickup</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#home">{t.home}</a></li>
+            <li><a href="#about">{t.about}</a></li>
+            <li><a href="#services">{t.services}</a></li>
+            <li><a href="#contact">{t.bookPickup}</a></li>
+            <li><a href="#contact">{t.contact}</a></li>
           </ul>
         </div>
 
         {/* Right Column: Contact Details */}
         <div className="footer-col">
-          <h3>Contacts</h3>
+          <h3>{t.contactsTitle}</h3>
           <div className="footer-contacts">
             <div className="contact-item">
               <Phone />
-              <span>(08) 9321 0000</span>
+              <span>{t.phone}</span>
             </div>
             <div className="contact-item">
               <Mail />
-              <span>info@kedalupenergy.com.au</span>
+              <span>{t.email}</span>
             </div>
             <div className="contact-item">
               <MapPin />
-              <span>Perth, Western Australia</span>
+              <span>{t.address}</span>
             </div>
           </div>
         </div>
@@ -51,11 +51,11 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="footer-bottom">
-        <p>&copy; {currentYear} Kedalup Energy. All rights reserved.</p>
+        <p>&copy; {currentYear} {t.logo}. {t.copyright}</p>
         <div className="footer-legal">
-          <a href="#privacy">Privacy Policy</a>
+          <a href="#privacy">{t.privacy}</a>
           <span>|</span>
-          <a href="#terms">Terms of Service</a>
+          <a href="#terms">{t.terms}</a>
         </div>
       </div>
     </footer>
