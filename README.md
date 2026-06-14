@@ -2,6 +2,7 @@
 * **Name:** Navidu Manathunga
 * **Project Title:** The Kedalup Energy
 * **GitHub Report:** https://github.com/navidumanathunga/Kedalup-Energy-project.git
+* **Netlify Link:** https://kedalup.netlify.app/
 
 # Kedalup Energy Website
 
