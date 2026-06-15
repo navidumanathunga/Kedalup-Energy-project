@@ -1,5 +1,5 @@
 import React from 'react'
-import { Phone, Mail, MapPin } from 'lucide-react'
+import { Phone, Mail, MapPin, Leaf, Facebook, Twitter, Instagram } from 'lucide-react'
 
 export default function Footer({ t }) {
   const currentYear = new Date().getFullYear()
@@ -10,6 +10,7 @@ export default function Footer({ t }) {
         {/* Left Column: Company Info */}
         <div className="footer-col">
           <a href="#home" className="footer-logo">
+            <Leaf size={24} className="footer-logo-icon" />
             <span>{t.logo}</span>
           </a>
           <p className="footer-description">
@@ -45,6 +46,17 @@ export default function Footer({ t }) {
               <MapPin />
               <span>{t.address}</span>
             </div>
+          </div>
+          <div className="footer-social">
+            <a href="#" aria-label="Facebook">
+              <Facebook size={18} />
+            </a>
+            <a href="#" aria-label="Twitter">
+              <Twitter size={18} />
+            </a>
+            <a href="#" aria-label="Instagram">
+              <Instagram size={18} />
+            </a>
           </div>
         </div>
       </div>
