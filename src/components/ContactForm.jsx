@@ -101,7 +101,6 @@ export default function ContactForm({ t }) {
             className="contact-form"
             onSubmit={handleSubmit}
             noValidate
-            style={{ backgroundImage: "url('/assets/hero-bg.png')" }}
           >
             <div className="contact-form-inner">
             
