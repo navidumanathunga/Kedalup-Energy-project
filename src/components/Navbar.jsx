@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Leaf } from 'lucide-react'
 
 const languageOptions = [
   { code: 'en', label: 'English' },
@@ -58,6 +58,7 @@ export default function Navbar({ t, language, setLanguage }) {
       <header className={`header ${isScrolled ? 'scrolled-light' : ''}`}>
         <div className="nav-container">
           <a href="#home" className="logo" aria-label="Kedalup Energy Home" onClick={(e) => handleNavClick(e, 'home')}>
+            <Leaf size={24} className="logo-icon" />
             <span>{t.logo}</span>
           </a>
 
